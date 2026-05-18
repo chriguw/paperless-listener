@@ -91,9 +91,11 @@ func processDocument(docID string) error {
 
 	fmt.Printf("Betrag: %v", parseResult.Amount)
 
-	upderr := pc.UpdateTitle(docID, finalTitle, parseResult.Amount)
-	if upderr != nil {
-		return fmt.Errorf("fehler beim Aktualisieren des Titels: %w", upderr)
+	if finalTitle != "" {
+		upderr := pc.UpdateTitle(docID, finalTitle, parseResult.Amount, app.AmountCustomFieldId)
+		if upderr != nil {
+			return fmt.Errorf("fehler beim Aktualisieren des Titels: %w", upderr)
+		}
 	}
 
 	return nil
@@ -172,4 +174,3 @@ func resolveConfigPath() (string, error) {
 
 	return "", fmt.Errorf("keine Config gefunden (geprueft: %s)", strings.Join(candidates, ", "))
 }
-

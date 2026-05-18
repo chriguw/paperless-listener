@@ -112,10 +112,139 @@ Create a workflow in paperless
 - Trigger: Document added
 - Action: Webhook
   
-  Webhook-Url http://<your-ip>:8080/webhook/1
+  Webhook-Url http://paperless-listener.local:8080/webhook/1
   
   Parameter for Webhook-content: True
   
   Sent Webhook-Payload: True
 
   Webhook-parameter -> pfad: {doc-url}
+
+## config.json
+in config json the mapping takes place
+
+paperlessHost is the servicename from you paperless instance in the docker-compose, note that you need there the internal port
+
+token is the token from your paperless
+
+the amountCustomfieldId is the id of the currentcy_customfield which you have to define in paperless if you like to have also the ammount of a bill 
+if you don't have this customfield just let a 0 there
+
+```json
+  "paperlessHost": "http://webserver:8000",
+  "token": "replace-with-api-token-from-paperless",
+  "amountCustomFieldId": 0,
+```
+
+titles
+
+the script reads line by line from the ocr comment of the document, if the line contains the word on the left side, title1 to title4 will contain the word on the right side
+
+```json
+  "title1": {
+      "Rechtsschutzversicherung": "Rechtsschutzversicherung",
+      "Haushaltversicherung": "Haushaltversicherung",
+      "Motorfahrzeugversicherung": "Motorfahrzeugversicherung",
+      "Gebäudeversicherung": "Gebäudeversicherug",
+      "CH00 0000 0000 0000 0000 0": "Lohnkonto"
+    }
+```
+
+```json
+  "title2": {
+      "Prämienrechnung": "Prämienrechnung",
+      "Leistungsabrechnung": "Leistungsabrechnung",
+      "Endabrechnung":"Endabrechnung"
+    }
+```
+
+```json
+  "title3": {
+      "Vertragsänderung": "Vertragsänderung",
+      "Rechnungs-Nr.":"Rechnung",
+      "Akontorechnung vom": "Akontorechnung"
+    }
+```
+here you could par example also use a contractnumber and map it to a person
+```json
+  "title4": {
+      "00 0000 000": "Klaus",
+      "11 1111 111": "Berta"
+    }
+```
+yearKeyword
+
+here it tries to extract the year from a date which is placed on the right side of one of this words
+
+par example "Kontoabschluss per 02.02.2026" would return 2026
+
+```json
+  "yearKeywords": [
+    "Kalenderjahr",
+    "Steuer ab",
+    "Kontoabschluss per"
+  ]
+```
+amountKeywords
+
+here it tries to extract an amount placed on the right side of one of this words
+
+par example "Total zu Ihren Lasten CHF 15.50" would return 15.50
+
+```json
+  "amountKeywords": [
+    "Total zu Ihren Lasten CHF",
+    "zu Ihren Lasten"
+  ]
+```
+
+The final title of the document would then be as follows
+
+title1_title2_title3_title4_year
+
+if title2 is empty, it would be 
+
+title1_title3_title4_year
+
+there is an additional function which tries to extract year an month of the dates in the document
+
+if a line in the document contains 2. Mai 2026 it will return 2026_05, if this is found it will replace the year from above
+
+if you did changes on your configfile, you can reload the config like this
+
+```
+curl --request GET \
+  --url http://localhost:8080/reload
+```
+
+to trigger a single document you can do it like this while the 760 in the body needs to be the document id
+
+```
+curl --request POST \
+  --url http://localhost:8080/webhook/1 \
+  --header 'content-type: application/json' \
+  --data '{"pfad":"http://localhost:8081/documents/760/"}
+
+```
+
+to add it to your existing docker compose file, here is an example
+
+```
+paperless-listener:
+   image: mydoidfortest/paperless-listener:arm64-1.2
+   container_name: listener
+   ports:
+     - "8080:8080"
+   volumes:
+     - ./config.json:/app/config.json:ro
+   restart: unless-stopped
+   networks:
+    default:
+      aliases:
+        - paperless-listener.local
+```
+
+the docker mages can be found here 
+https://hub.docker.com/r/mydoidfortest/paperless-listener/tags
+
+or you can create them by yourself as described above

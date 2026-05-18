@@ -47,17 +47,20 @@ func (pc PaperlessClient) GetDocument(docId string) (string, error) {
 	return "", fmt.Errorf("Kein Inhalt gefunden")
 }
 
-func (pc PaperlessClient) UpdateTitle(docId string, finalTitle string, amount float64) error {
+func (pc PaperlessClient) UpdateTitle(docId string, finalTitle string, amount float64, cfId int) error {
 	url := fmt.Sprintf("/api/documents/%s/", docId)
 
 	payload := DocumentPayload{
 		Title: finalTitle,
-		CustomFields: []CustomField{
+	}
+
+	if cfId > 0 {
+		payload.CustomFields = []CustomField{
 			{
 				Value: amount,
-				Field: 2,
+				Field: cfId,
 			},
-		},
+		}
 	}
 
 	resp, err := pc.client.R().

@@ -40,5 +40,5 @@ type CustomField struct {
 
 type DocumentPayload struct {
 	Title        string        `json:"title"`
-	CustomFields []CustomField `json:"custom_fields"`
+	CustomFields []CustomField `json:"custom_fields,omitempty"`
 }

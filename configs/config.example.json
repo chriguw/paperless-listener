@@ -1,23 +1,38 @@
 {
-  "paperlessHost": "http://paperless:8000",
-  "token": "replace-with-api-token",
+  "paperlessHost": "http://webserver:8000",
+  "token": "replace-with-api-token-from-paperless",
+  "amountCustomFieldId": 0,
   "titles": {
     "title1": {
-      "Example sender": "Sender"
+      "Rechtsschutzversicherung": "Rechtsschutzversicherung",
+      "Haushaltversicherung": "Haushaltversicherung",
+      "Motorfahrzeugversicherung": "Motorfahrzeugversicherung",
+      "Gebäudeversicherung": "Gebäudeversicherug",
+      "CH00 0000 0000 0000 0000 0": "Lohnkonto"
     },
     "title2": {
-      "Example category": "Category"
+      "Prämienrechnung": "Prämienrechnung",
+      "Leistungsabrechnung": "Leistungsabrechnung",
+      "Endabrechnung":"Endabrechnung"
     },
-    "title3": {},
-    "title4": {}
+    "title3": {
+      "Vertragsänderung": "Vertragsänderung",
+      "Rechnungs-Nr.":"Rechnung",
+      "Akontorechnung vom": "Akontorechnung"
+    },
+    "title4": {
+      "00 0000 000": "Klaus",
+      "11 1111 111": "Klaus"
+    }
   },
   "yearKeywords": [
     "Kalenderjahr",
-    "Rechnungsdatum"
+    "Steuer ab",
+    "Kontoabschluss per"
   ],
   "amountKeywords": [
     "Total zu Ihren Lasten CHF",
-    "CHF"
+    "zu Ihren Lasten"
   ]
 }
 

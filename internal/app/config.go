@@ -7,9 +7,10 @@ import (
 )
 
 type Config struct {
-	PaperlessHost string `json:"paperlessHost"`
-	Token         string `json:"token"`
-	Titles        struct {
+	PaperlessHost       string `json:"paperlessHost"`
+	Token               string `json:"token"`
+	AmountCustomFieldId int    `json:"amountCustomFieldId"`
+	Titles              struct {
 		Title1 map[string]string `json:"title1"`
 		Title2 map[string]string `json:"title2"`
 		Title3 map[string]string `json:"title3"`
@@ -21,14 +22,15 @@ type Config struct {
 
 // Global variables that will be loaded from config
 var (
-	PaperlessHost  string
-	PaperlessToken string
-	Title1         map[string]string
-	Title2         map[string]string
-	Title3         map[string]string
-	Title4         map[string]string
-	YearKeywords   []string
-	AmountKeywords []string
+	PaperlessHost       string
+	PaperlessToken      string
+	AmountCustomFieldId int
+	Title1              map[string]string
+	Title2              map[string]string
+	Title3              map[string]string
+	Title4              map[string]string
+	YearKeywords        []string
+	AmountKeywords      []string
 )
 
 // LoadConfig loads configuration from a JSON file
@@ -47,6 +49,7 @@ func LoadConfig(filePath string) error {
 	// Assign loaded values to global variables
 	PaperlessHost = config.PaperlessHost
 	PaperlessToken = config.Token
+	AmountCustomFieldId = config.AmountCustomFieldId
 	Title1 = config.Titles.Title1
 	Title2 = config.Titles.Title2
 	Title3 = config.Titles.Title3
