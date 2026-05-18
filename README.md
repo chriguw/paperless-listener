@@ -97,3 +97,25 @@ docker buildx build --platform linux/amd64 -t paperless-listener:amd64 --load .
 docker buildx build --platform linux/arm64 -t paperless-listener:arm64 --load .
 ```
 
+## Prerequisites in Paperless-ngx
+
+the following Environment variables needs to be set in Paperless-ngx that it works
+
+```bash
+PAPERLESS_WORKFLOW_ENABLED: "true"
+PAPERLESS_URL: http://localhost:8081
+```
+## Configuration in Paperless-ngx
+Create a workflow in paperless
+
+- Name: Add Title
+- Trigger: Document added
+- Action: Webhook
+  
+  Webhook-Url http://<your-ip>:8080/webhook/1
+  
+  Parameter for Webhook-content: True
+  
+  Sent Webhook-Payload: True
+
+  Webhook-parameter -> pfad: {doc-url}
