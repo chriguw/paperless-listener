@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  paperless-listener:
+    image: paperless-listener:arm64
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./config.json:/app/config.json:ro
+    restart: unless-stopped
+

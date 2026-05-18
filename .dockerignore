@@ -1,0 +1,18 @@
+.git
+.gitignore
+.idea
+.vscode
+
+# Local runtime config/secrets
+config.json
+configs/*.local.json
+
+# Build output
+bin/
+dist/
+*.out
+
+# Tooling and temp files
+*.log
+.DS_Store
+

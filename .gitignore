@@ -1,0 +1,50 @@
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Build output
+bin/
+dist/
+out/
+
+# Main binary (if built locally)
+main
+*.out
+
+# Test binary and coverage
+*.test
+*.cover
+coverage.out
+coverage.html
+
+# Go workspace
+go.work.sum
+
+# Dependency vendor directory (optional, remove if you commit vendor/)
+vendor/
+
+# Environment variables
+.env
+.env.*
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*.DS_Store
+
+# Docker
+docker-compose.override.yml
+
+# Logs
+*.log
+
+# OS
+Thumbs.db
+
+# Original config
+config.json

@@ -1,0 +1,23 @@
+{
+  "paperlessHost": "http://paperless:8000",
+  "token": "replace-with-api-token",
+  "titles": {
+    "title1": {
+      "Example sender": "Sender"
+    },
+    "title2": {
+      "Example category": "Category"
+    },
+    "title3": {},
+    "title4": {}
+  },
+  "yearKeywords": [
+    "Kalenderjahr",
+    "Rechnungsdatum"
+  ],
+  "amountKeywords": [
+    "Total zu Ihren Lasten CHF",
+    "CHF"
+  ]
+}
+
