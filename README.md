@@ -229,6 +229,8 @@ curl --request POST \
 
 to add it to your existing docker compose file, here is an example
 
+please note that in the example the mac image is used, there is also an amd64 image
+
 ```
 paperless-listener:
    image: mydoidfortest/paperless-listener:arm64-1.2
@@ -244,7 +246,7 @@ paperless-listener:
         - paperless-listener.local
 ```
 
-the docker mages can be found here 
+the docker images can be found here 
 https://hub.docker.com/r/mydoidfortest/paperless-listener/tags
 
 or you can create them by yourself as described above
