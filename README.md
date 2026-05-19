@@ -118,7 +118,9 @@ Create a workflow in paperless
   
   Sent Webhook-Payload: True
 
-  Webhook-parameter -> pfad: {doc-url}
+  Webhook-parameter -> pfad: {doc-url}    for paperless 2.14.7
+
+  Webhook-parameter -> pfad: {{doc-url}}  for paperless 2.20.15
 
 ## config.json
 in config json the mapping takes place
